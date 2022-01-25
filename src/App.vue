@@ -2,20 +2,25 @@
   <h1>Reflex Reaction Timer</h1>
   <button @click="start" :disabled='isPlaying'>play</button>
   <Block v-if="isPlaying" :delay="delay" @end="endGame"/>
-  <p v-if="showResults">reaction time :{{ score }} ms</p>
+  <Results v-if="showResults" :score="score" >
+    <p>reaction time :{{score}} ms</p>
+  </Results>
+  <!-- <p v-if="showResults">reaction time :{{ score }} ms</p> -->
 </template>
 
 <script>
 import Block from './components/Block'
+import Results from './components/results.vue'
 export default {
   name: 'App',
-  components: { Block },
+  components: { Block,Results },
   data () {
     return {
       isPlaying:false,
       delay:null,
       score:null,
       showResults:false,
+      
     }
   },
   methods: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="block" v-if="showBlock">
+  <div class="block" v-if="showBlock" @click="stopTimer">
       click me
   </div>
 </template>
@@ -10,12 +10,27 @@ export default {
     data() {
         return {
             showBlock: false,
+            timer:null,
+            reactionTimer:0
         }
     },
     mounted(){
      setTimeout(()=>{
-         this.showBlock = true;
+         this.showBlock = true
+         this.startTimer()
      },this.delay)
+    },
+    methods: {
+        startTimer(){
+            this.timer = setInterval(()=>{
+                this.reactionTimer +=10
+            },10)
+        },
+        stopTimer(){
+           clearInterval(this.timer) 
+            //create a custom event and send the reaction timer data with it
+            this.$emit('end',this.reactionTimer) 
+        }
     },
     
 }
